@@ -82,12 +82,18 @@ app.post('/signup', async (req, res) => {
 
 app.post('/logout', (req, res, next) => {
     req.logOut((err) => {
-        if(err) {
+        if (err) {
             return next(err);
         }
         res.redirect('/login');
     });
 });
+
+app.get('/auth/google', passport.authenticate('google'));
+app.get('/auth/google/callback', passport.authenticate('google', {
+    successReturnToOrRedirect: '/',
+    failureRedirect: '/login'
+}));
 
 if (isMongooseConnected) {
     const port = 4000;
