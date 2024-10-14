@@ -1,4 +1,5 @@
-.env
+.env*
+!.env.sample
 .idea
 node_modules
 .DS_Store
