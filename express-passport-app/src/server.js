@@ -3,6 +3,7 @@ import express from 'express';
 import path from 'path';
 import passport from 'passport';
 import cookieSession from 'cookie-session';
+import config from 'config';
 
 import {getDirName} from './utils/paths.js';
 import {makeConnection} from './utils/mongoose.js';
@@ -96,9 +97,9 @@ app.get('/auth/google/callback', passport.authenticate('google', {
 }));
 
 if (isMongooseConnected) {
-    const port = 4000;
-    app.listen(port, () => {
-        console.log(`Server is running on port ${port}`);
+    const serverConfig = config.get('server');
+    app.listen(serverConfig.port, () => {
+        console.log(`Server is running on port ${serverConfig.port}`);
     });
 } else {
     console.log('Server cannot start.');
